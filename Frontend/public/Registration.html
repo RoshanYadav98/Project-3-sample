@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <link rel="stylesheet" href="css/Registration.css">
+    <link rel="stylesheet" href="Nav.css">
+</head>
+<body>
+        <a href="index.html" class="home-btn">Login</a>
+
+    <div class="registration-container">
+        <h2>Account Registration</h2>
+
+        <form id="registrationForm">
+            <div class="account-type">
+                <label>
+                    <input type="radio" name="accountType" value="individual" onclick="toggleFields()" checked> Individual
+                </label>
+                <label>
+                    <input type="radio" name="accountType" value="business" onclick="toggleFields()"> Business
+                </label>
+            </div>
+
+            <!-- Common Fields for Both Users -->
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Your First Name" required>
+                
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Your Last Name" required>
+
+            <!-- Individual User Fields -->
+            <div id="individual-fields" class="user-fields">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" name="phone" placeholder="Your Phone Number" required>
+            </div>
+
+            <!-- Business User Fields -->
+            <div id="business-fields" class="user-fields" style="display: none;">
+                <label for="businessEmail">Business Email</label>
+                <input type="email" id="businessEmail" name="businessEmail" placeholder="Your Business Email" required>
+
+                <label for="companyPhone">Company Phone Number</label>
+                <input type="text" id="companyPhone" name="companyPhone" placeholder="Company Phone Number" required>
+
+                <label for="taxId">Tax ID</label>
+                <input type="text" id="taxId" name="taxId" placeholder="Tax ID" required>
+            </div>
+
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleFields() {
+            const individualFields = document.getElementById('individual-fields');
+            const businessFields = document.getElementById('business-fields');
+            
+            const selectedType = document.querySelector('input[name="accountType"]:checked').value;
+            
+            if (selectedType === 'business') 
+            {
+                individualFields.style.display = 'none';
+                businessFields.style.display = 'block';
+            } 
+            else 
+            {
+                individualFields.style.display = 'block';
+                businessFields.style.display = 'none';
+            }
+        }
+    </script>
+    <script>
+        // Add an event listener to handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', async (event) => {
+          event.preventDefault(); // Prevent page reload on form submission
+      
+          // Collect form data
+          const formData = {
+            firstName: document.getElementById('firstName').value,
+            lastName: document.getElementById('lastName').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+          };
+      
+          try {
+            // Send the data to the backend
+            const response = await fetch('/api/register', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData),
+            });
+      
+            const result = await response.json();
+      
+            if (response.ok) {
+              alert('Registration successful!');
+            } else {
+              alert(`Error: ${result.message}`);
+            }
+          } catch (error) {
+            console.error('Error:', error);
+          }
+        });
+      </script>
+      
+</body>
+</html>

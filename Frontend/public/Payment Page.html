@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout</title>
+    <link rel="stylesheet" href="css/styles.css">
+    
+</head>
+<body>
+    <header>
+        <a href="Home.html">← Continue shopping</a>
+        <img src="Images/Logo.jpg" alt="Bellroy Logo" class="logo">
+    </header>
+    <main>
+        <h1>Secure Checkout</h1>
+        <div class="checkout-container">
+            <section class="order-review">
+                <h2>1. Review Your Order (1 Items)</h2>
+                <div class="product-item">
+                    <img src="product.jpg" alt="Note Sleeve" class="product-image">
+                    <div class="product-details">
+                        <p>Note Sleeve</p>
+                        <p>Color: Tan</p>
+                        <p>Finish: Leather / RFID</p>
+                        <label for="quantity">Qty:</label>
+                        <select id="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                        <p class="product-price">$0.00</p>
+                    </div>
+                </div>
+                <div class="order-summary">
+                    <p>Subtotal: $0.00 US</p>
+                    <label for="country">Shipping to:</label>
+                    <select id="country">
+                        <option>Canada</option>
+                        <option>USA</option>
+                    </select>
+                    <label for="province">Shipping to (state or province):</label>
+                    <select id="province">
+                        <option>Ontario</option>
+                        <option>Quebec</option>
+                    </select>
+                    <p>Select delivery:</p>
+                    <button class="free-delivery">Free - Regular (5-10 business days, tracking)</button>
+                    <button class="paypal-button">Check out with PayPal</button>
+                    <button class="delivery-button">Continue to Delivery Address</button>
+                </div>
+            </section>
+            <section class="delivery-address">
+                <h2>2. Delivery Address</h2>
+                <form>
+                    <label>Email address*</label>
+                    <input type="email" placeholder="e.g. roy@bellroy.com" required>
+                    <label>First name*</label>
+                    <input type="text" required>
+                    <label>Last name*</label>
+                    <input type="text" required>
+                    <label>Telephone*</label>
+                    <input type="tel" required>
+                    <label>Delivery address*</label>
+                    <input type="text" placeholder="e.g. Unit 1, 123 Main Street" required>
+                    <label>Suburb/town*</label>
+                    <input type="text" required>
+                    <label>State/territory*</label>
+                    <select>
+                        <option>Ontario</option>
+                        <option>Quebec</option>
+                    </select>
+                    <label>Postcode*</label>
+                    <input type="text" required>
+                    <label>Country*</label>
+                    <select>
+                        <option>Canada</option>
+                        <option>USA</option>
+                    </select>
+                    <input type="checkbox"> Same billing address
+                </form>
+            </section>
+            <section class="payment-method">
+                <h2>3. Select Payment Method</h2>
+                <label><input type="radio" name="payment" checked> Card</label>
+                <label><input type="radio" name="payment"> PayPal</label>
+                <div class="order-total">
+                    <p>Order Summary</p>
+                    <p>Subtotal: $0.00</p>
+                    <p>Shipping to USA: FREE</p>
+                    <p>Sales Tax: $0.00</p>
+                    <h3>Order Total: $0.00</h3>
+                    <input type="checkbox"> I'm keen for new releases and subscriber exclusives. Sign me up!
+                    <button class="pay-button">Pay Now</button>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
