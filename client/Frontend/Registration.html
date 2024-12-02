@@ -42,13 +42,13 @@
             <!-- Business User Fields -->
             <div id="business-fields" class="user-fields" style="display: none;">
                 <label for="businessEmail">Business Email</label>
-                <input type="email" id="businessEmail" name="businessEmail" placeholder="Your Business Email" required>
-
+                <input type="email" id="businessEmail" name="businessEmail" placeholder="Your Business Email">
+                
                 <label for="companyPhone">Company Phone Number</label>
-                <input type="text" id="companyPhone" name="companyPhone" placeholder="Company Phone Number" required>
-
+                <input type="text" id="companyPhone" name="companyPhone" placeholder="Company Phone Number">
+                
                 <label for="taxId">Tax ID</label>
-                <input type="text" id="taxId" name="taxId" placeholder="Tax ID" required>
+                <input type="text" id="taxId" name="taxId" placeholder="Tax ID">
             </div>
 
             <label for="password">Password</label>
@@ -58,6 +58,71 @@
         </form>
     </div>
 
-    <script src="scripts.js"></script>
+    <script>
+        function toggleFields() {
+            const accountType = document.querySelector('input[name="accountType"]:checked').value;
+            const individualFields = document.getElementById('individual-fields');
+            const businessFields = document.getElementById('business-fields');
+
+            if (accountType === 'individual') {
+                individualFields.style.display = 'block';
+                businessFields.style.display = 'none';
+
+                // Add required attributes to individual fields
+                document.getElementById('email').setAttribute('required', 'true');
+                document.getElementById('phone').setAttribute('required', 'true');
+
+                // Remove required attributes from business fields
+                document.getElementById('businessEmail').removeAttribute('required');
+                document.getElementById('companyPhone').removeAttribute('required');
+                document.getElementById('taxId').removeAttribute('required');
+            } else {
+                individualFields.style.display = 'none';
+                businessFields.style.display = 'block';
+
+                // Add required attributes to business fields
+                document.getElementById('businessEmail').setAttribute('required', 'true');
+                document.getElementById('companyPhone').setAttribute('required', 'true');
+                document.getElementById('taxId').setAttribute('required', 'true');
+
+                // Remove required attributes from individual fields
+                document.getElementById('email').removeAttribute('required');
+                document.getElementById('phone').removeAttribute('required');
+            }
+        }
+
+        // Ensure toggleFields runs on page load to set correct attributes
+        document.addEventListener('DOMContentLoaded', toggleFields);
+
+        // Handle form submission
+        document.getElementById('registrationForm').addEventListener('submit', async function (event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Gather form data
+            const formData = new FormData(event.target);
+            const formObject = Object.fromEntries(formData.entries());
+
+            try {
+                // Send API request
+                const response = await fetch('http://localhost:3002/api/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formObject),
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    alert('Registration successful!'); // Success message
+                } else {
+                    const error = await response.json();
+                    alert(`Error: ${error.message}`);
+                }
+            } catch (error) {
+                alert(`Failed to register: ${error.message}`);
+            }
+        });
+    </script>
 </body>
 </html>
