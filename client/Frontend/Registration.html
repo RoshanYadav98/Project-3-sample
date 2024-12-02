@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="Nav.css">
 </head>
 <body>
-        <a href="index.html" class="home-btn">Login</a>
+    <a href="index.html" class="home-btn">Login</a>
 
     <div class="registration-container">
         <h2>Account Registration</h2>
@@ -51,6 +51,9 @@
                 <input type="text" id="taxId" name="taxId" placeholder="Tax ID" required>
             </div>
 
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Your Password" required>
+
             <button type="submit">Register</button>
         </form>
     </div>
@@ -62,19 +65,15 @@
             
             const selectedType = document.querySelector('input[name="accountType"]:checked').value;
             
-            if (selectedType === 'business') 
-            {
+            if (selectedType === 'business') {
                 individualFields.style.display = 'none';
                 businessFields.style.display = 'block';
-            } 
-            else 
-            {
+            } else {
                 individualFields.style.display = 'block';
                 businessFields.style.display = 'none';
             }
         }
-    </script>
-    <script>
+
         // Add an event listener to handle form submission
         document.getElementById('registrationForm').addEventListener('submit', async (event) => {
           event.preventDefault(); // Prevent page reload on form submission
@@ -85,6 +84,7 @@
             lastName: document.getElementById('lastName').value,
             email: document.getElementById('email').value,
             phone: document.getElementById('phone').value,
+            password: document.getElementById('password').value,
           };
       
           try {
@@ -106,7 +106,6 @@
             console.error('Error:', error);
           }
         });
-      </script>
-      
+    </script>
 </body>
 </html>
