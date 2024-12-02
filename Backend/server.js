@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User'); // Ensure you have a User model
+//const connectDB = require('./config/db');
+const registrationRoute = require('./routes/registration'); // Import the registration route
 
 dotenv.config();
 const connectDB = require('./config/db');
@@ -18,6 +20,9 @@ app.use(express.json()); // Parse JSON request bodies
 
 // Serve static files
 app.use(express.static('client/Frontend'));
+
+// Use the registration route
+app.use('/api', registrationRoute);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -49,33 +54,6 @@ app.post('/api/register', async (req, res) => {
   res.json({ message: 'Registration successful!' });
 });
 
-// Login API endpoint
-app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  // Basic validation
-  if (!email || !password) {
-    return res.status(400).json({ message: 'All fields are required.' });
-  }
-
-  // Check if user exists
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(400).json({ message: 'Invalid credentials.' });
-  }
-
-  // Check password
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) {
-    return res.status(400).json({ message: 'Invalid credentials.' });
-  }
-
-  // Generate token
-  const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-  res.json({ message: 'Login successful!', token });
-});
-
 // Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -83,5 +61,5 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
