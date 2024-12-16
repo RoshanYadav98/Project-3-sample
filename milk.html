@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Milk</title>
+  <link rel="stylesheet" href="css/product.css">
+</head>
+<body>
+
+<header>
+  <div class="header-right">
+    <a href="cart.html">Cart</a>
+  </div>
+  <div class="header-center">
+    <img src="images/Logo.jpg" alt="Site Logo" style="height: 50px;">
+    <input type="text" placeholder="Search...">
+  </div>
+  <div class="header-left">
+    <a href="account.html">Account</a>
+  </div>
+</header>
+
+<nav class="banner-nav">
+  <a href="home.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<section class="banner">
+  <h2>Milk Products</h2>
+</section>
+
+<main class="product-section">
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="images/milk1.jpg" alt="Milk Product 1">
+      <p>Organic Whole Milk</p>
+      <p>Price: $4.00</p>
+      <button class="add-to-cart" onclick="addToCart('Organic Whole Milk', 4.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/milk2.jpg" alt="Milk Product 2">
+      <p>Low-Fat Milk</p>
+      <p>Price: $3.50</p>
+      <button class="add-to-cart" onclick="addToCart('Low-Fat Milk', 3.50)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/milk3.jpg" alt="Milk Product 3">
+      <p>Almond Milk</p>
+      <p>Price: $5.00</p>
+      <button class="add-to-cart" onclick="addToCart('Almond Milk', 5.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/milk4.jpg" alt="Milk Product 4">
+      <p>Soy Milk</p>
+      <p>Price: $4.50</p>
+      <button class="add-to-cart" onclick="addToCart('Soy Milk', 4.50)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/milk5.jpg" alt="Milk Product 5">
+      <p>Oat Milk</p>
+      <p>Price: $6.00</p>
+      <button class="add-to-cart" onclick="addToCart('Oat Milk', 6.00)">Add to Cart</button>
+    </div>
+    <!-- Add more milk products as needed -->
+  </div>
+</main>
+
+<footer>
+  <a href="about.html">About Us</a>
+  <a href="customer-service.html">Customer Service</a>
+  <a href="contact.html">Contact Us</a>
+</footer>
+
+<script>
+  // Function to add products to the cart
+  function addToCart(productName, price) {
+    // Retrieve the cart from localStorage or initialize an empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the product already exists in the cart
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+      // Increase the quantity if the product is already in the cart
+      existingProduct.quantity += 1;
+    } else {
+      // Add a new product to the cart
+      cart.push({ name: productName, price, quantity: 1 });
+    }
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Notify the user
+    alert(`${productName} has been added to your cart!`);
+  }
+</script>
+
+</body>
+</html>

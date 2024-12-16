@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+  <link rel="stylesheet" href="css/product.css">
+</head>
+<body>
+
+<header>
+  <div class="header-right">
+    <a href="Cart page.html">Cart</a>
+    <!-- Updated button to validate and navigate to payment -->
+    <a href="javascript:void(0)" class="checkout-button" onclick="proceedToPayment()">Proceed to Payment</a>
+  </div>
+  <div class="header-center">
+    <img src="images/Logo.jpg" alt="Site Logo" style="height: 50px;">
+    <input type="text" placeholder="Search...">
+  </div>
+  <div class="header-left">
+    <a href="account.html">Account</a>
+  </div>
+</header>
+
+<nav class="banner-nav">
+  <a href="home.html">Home</a>
+  <a href="product.html" class="active">Products</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<section class="banner">
+  <h2>Our Products</h2>
+</section>
+
+<main class="product-section">
+  <div class="category-links">
+    <div class="product-item">
+      <img src="images/coffee.jpg" alt="Coffee">
+      <p>Coffee</p>
+      <p>Price: $10.00</p>
+      <button onclick="addToCart('Coffee', 10.00)">Add to Cart</button>
+    </div>
+    <div class="product-item">
+      <img src="images/tea.jpg" alt="Tea">
+      <p>Tea</p>
+      <p>Price: $8.00</p>
+      <button onclick="addToCart('Tea', 8.00)">Add to Cart</button>
+    </div>
+    <!-- Add more products as needed -->
+  </div>
+</main>
+
+<footer>
+  <a href="about.html">About Us</a>
+  <a href="customer-service.html">Customer Service</a>
+  <a href="contact.html">Contact Us</a>
+</footer>
+
+<script>
+  // Function to add items to the cart
+  function addToCart(productName, price) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingProduct = cart.find(item => item.name === productName);
+
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({ name: productName, price, quantity: 1 });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${productName} has been added to your cart!`);
+  }
+
+  // Function to validate cart and proceed to payment
+  function proceedToPayment() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+      alert('Your cart is empty! Please add some products before proceeding to payment.');
+    } else {
+      window.location.href = 'payment.html'; // Redirect to payment page
+    }
+  }
+</script>
+
+</body>
+</html>

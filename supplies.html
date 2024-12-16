@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplies</title>
+  <link rel="stylesheet" href="css/product.css">
+</head>
+<body>
+
+<header>
+  <div class="header-right">
+    <a href="cart.html">Cart</a>
+  </div>
+  <div class="header-center">
+    <img src="images/Logo.jpg" alt="Site Logo" style="height: 50px;">
+    <input type="text" placeholder="Search...">
+  </div>
+  <div class="header-left">
+    <a href="account.html">Account</a>
+  </div>
+</header>
+
+<nav class="banner-nav">
+  <a href="home.html">Home</a>
+  <a href="products.html">Products</a>
+  <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+</nav>
+
+<section class="banner">
+  <h2>Supplies</h2>
+</section>
+
+<main class="product-section">
+  <div class="product-grid">
+    <div class="product-card">
+      <img src="images/supplies1.jpg" alt="Cleaning Supplies">
+      <p>Cleaning Supplies</p>
+      <p>Price: $10.00</p>
+      <button class="add-to-cart" onclick="addToCart('Cleaning Supplies', 10.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/supplies2.jpg" alt="Office Supplies">
+      <p>Office Supplies</p>
+      <p>Price: $15.00</p>
+      <button class="add-to-cart" onclick="addToCart('Office Supplies', 15.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/supplies3.jpg" alt="Stationery Supplies">
+      <p>Stationery Supplies</p>
+      <p>Price: $5.00</p>
+      <button class="add-to-cart" onclick="addToCart('Stationery Supplies', 5.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/supplies4.jpg" alt="Packaging Supplies">
+      <p>Packaging Supplies</p>
+      <p>Price: $12.00</p>
+      <button class="add-to-cart" onclick="addToCart('Packaging Supplies', 12.00)">Add to Cart</button>
+    </div>
+    <div class="product-card">
+      <img src="images/supplies5.jpg" alt="Miscellaneous Supplies">
+      <p>Miscellaneous Supplies</p>
+      <p>Price: $8.00</p>
+      <button class="add-to-cart" onclick="addToCart('Miscellaneous Supplies', 8.00)">Add to Cart</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="about.html">About Us</a>
+  <a href="customer-service.html">Customer Service</a>
+  <a href="contact.html">Contact Us</a>
+</footer>
+
+<script>
+  // Function to add products to the cart
+  function addToCart(productName, price) {
+    // Retrieve the cart from localStorage or initialize an empty array
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    // Check if the product already exists in the cart
+    const existingProduct = cart.find(item => item.name === productName);
+    if (existingProduct) {
+      // Increase the quantity if the product is already in the cart
+      existingProduct.quantity += 1;
+    } else {
+      // Add a new product to the cart
+      cart.push({ name: productName, price, quantity: 1 });
+    }
+
+    // Save the updated cart back to localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Notify the user
+    alert(`${productName} has been added to your cart!`);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secure Checkout</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <a href="cart.html">← Back to Cart</a>
+  <h1>Secure Checkout</h1>
+</header>
+
+<!-- Main Content -->
+<main>
+  <div class="checkout-container">
+
+    <!-- Order Review Section -->
+    <section class="order-review">
+      <h2>1. Review Your Order</h2>
+      <div id="order-summary"></div>
+    </section>
+
+    <!-- Delivery Address Section -->
+    <section class="delivery-address">
+      <h2>2. Delivery Address</h2>
+      <form>
+        <label>Email address*</label>
+        <input type="email" placeholder="e.g. roy@bellroy.com" required>
+
+        <label>First name*</label>
+        <input type="text" required>
+
+        <label>Last name*</label>
+        <input type="text" required>
+
+        <label>Telephone*</label>
+        <input type="tel" required>
+
+        <label>Delivery address*</label>
+        <input type="text" placeholder="e.g. Unit 1, 123 Main Street" required>
+
+        <label>Suburb/town*</label>
+        <input type="text" required>
+
+        <label>State/territory*</label>
+        <select>
+          <option>Ontario</option>
+          <option>Quebec</option>
+        </select>
+
+        <label>Postcode*</label>
+        <input type="text" required>
+
+        <label>Country*</label>
+        <select>
+          <option>Canada</option>
+          <option>USA</option>
+        </select>
+
+        <input type="checkbox"> Same billing address
+      </form>
+    </section>
+
+    <!-- Payment Method Section -->
+    <section class="payment-method">
+      <h2>3. Select Payment Method</h2>
+      <label>
+        <input type="radio" name="payment" checked> Credit Card
+      </label>
+      <label>
+        <input type="radio" name="payment"> PayPal
+      </label>
+
+      <!-- Order Total -->
+      <div class="order-total">
+        <p>Order Summary</p>
+        <div id="total-summary"></div>
+        <input type="checkbox"> I'm keen for new releases and subscriber exclusives. Sign me up!
+        <button class="pay-button" onclick="processPayment()">Pay Now</button>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Footer -->
+<footer>
+  <a href="about.html">About Us</a>
+  <a href="customer-service.html">Customer Service</a>
+  <a href="contact.html">Contact Us</a>
+</footer>
+
+<!-- JavaScript -->
+<script>
+  // Function to load the order summary from localStorage
+  function loadOrderSummary() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const orderSummary = document.getElementById('order-summary');
+    const totalSummary = document.getElementById('total-summary');
+
+    orderSummary.innerHTML = ''; // Clear the content first
+    totalSummary.innerHTML = ''; // Clear the total summary content
+
+    // If the cart is empty
+    if (cart.length === 0) {
+      orderSummary.innerHTML = '<p>Your cart is empty. Please return to the Cart page and add items.</p>';
+      totalSummary.innerHTML = '<p>Total: $0.00</p>';
+      return;
+    }
+
+    let total = 0;
+
+    // Display each product
+    cart.forEach(item => {
+      const subtotal = item.price * item.quantity;
+      total += subtotal;
+
+      orderSummary.innerHTML += `
+        <div class="product-item">
+          <p>${item.name} - $${item.price.toFixed(2)} x ${item.quantity}</p>
+          <p>Subtotal: $${subtotal.toFixed(2)}</p>
+        </div>
+      `;
+    });
+
+    // Display the total price
+    totalSummary.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
+  }
+
+  // Function to process the payment
+  function processPayment() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    if (cart.length === 0) {
+      alert('Your cart is empty. Please add items before proceeding with payment.');
+      return;
+    }
+
+    alert('Payment processed successfully! Thank you for your purchase.');
+    localStorage.removeItem('cart'); // Clear cart after payment
+    window.location.href = 'thank-you.html'; // Redirect to thank-you page
+  }
+
+  // Load the order summary on page load
+  loadOrderSummary();
+</script>
+
+</body>
+</html>
